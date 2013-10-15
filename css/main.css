@@ -1,13 +1,25 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
 #index {
-		background: url(img/bamboo.jpg) no-repeat center center fixed;
+		background: url(../img/bamboo.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
-        background-size: cover;    
+        background-size: cover;  
+        
+        /*
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index:-1; */
 }
 
 #profile {
-		background: url(img/lime.jpg) no-repeat center center fixed;
+		background: url(../img/lime.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -25,21 +37,23 @@
 
 /******** WELCOME PAGE ********/
 #indexContent {
-	margin-top: 150px;
+	padding-top: 150px;
 }
 
 #welcome {
 	margin-left: 15%;
-	margin-top: 125px;
+	margin-top: 150px;
 	text-align: center;
 	vertical-align: middle;
 	float:left;
 	width: 40%;
+	z-index: 1;
 }
 
 	#welcome h1, h2 {
 	color: white;
 	font-family: 'Poller One', cursive;
+	
 	}
 
 #login, #signup {
