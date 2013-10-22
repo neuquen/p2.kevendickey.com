@@ -7,20 +7,21 @@
 		
 		
 		<div id="login">
-			<form name="login" action="users/profile" method="post">
+			<form name="login" action="/users/p_login" method="post">
 				<h3>Please Sign In</h3>
-				<input class="textField" type="text" name="email" placeholder="Username or Email"/><br/>
-				<input class="textField" type="text" name="password" placeholder="Password"/><br/>
+				<input class="textField" type="email" name="email" placeholder="Email Address" required/><br/>
+				<input class="textField" type="password" name="password" placeholder="Password" required/><br/>
 				<input class="button"    type="submit" value="Sign In"/>
 			</form>
 		</div>
 		
 		<div id="signup">
-			<form>
+			<form method="post" action="/users/p_signup/">
 				<h3>Need to SQUAWK? Sign up</h3>
-				<input class="textField" type="text" name="name" placeholder="Full Name"/><br/>
-				<input class="textField" type="text" name="email" placeholder="Email"/><br/>
-				<input class="textField" type="text" name="password" placeholder="Password"/><br/>
+				<input class="textField" type="text" name="first_name" placeholder="First Name" required/><br/>
+				<input class="textField" type="text" name="last_name" placeholder="Last Name" required/><br/>
+				<input class="textField" type="email" name="email" placeholder="Email Address" required/><br/>
+				<input class="textField" type="password" name="password" placeholder="Password" required/><br/>
 				<input class="button"    type="submit" value="Sign Up" />
 			</form>
 		</div>

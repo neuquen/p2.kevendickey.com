@@ -1,7 +1,9 @@
+/******************************************************************************* 
+GLOBAL
+*******************************************************************************/
 body, html {
 	margin: 0;
 	padding: 0;
-	height: 100%;
 }
 
 #index {
@@ -10,12 +12,6 @@ body, html {
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;  
-        
-        /*
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index:-1; */
 }
 
 #profile {
@@ -35,9 +31,13 @@ body, html {
 }
 
 
-/******** WELCOME PAGE ********/
+/******************************************************************************* 
+WELCOME PAGE 
+*******************************************************************************/
 #indexContent {
 	padding-top: 150px;
+	position: relative;
+	z-index: 1;
 }
 
 #welcome {
@@ -94,7 +94,10 @@ body, html {
 }
 
 
-/******** PROFILE ********/
+
+/******************************************************************************* 
+PROFILE
+*******************************************************************************/
 .fillPage {
 	height: 100%;
 	margin: 0;
@@ -108,6 +111,8 @@ body, html {
 	margin: 0 20% 0 20%;
 	overflow: hidden; /* Removes background-color gap at end of page in IE */
 	min-width: 600px;
+	position: relative;
+	z-index: 1;
 }
 
 #username {
@@ -179,7 +184,9 @@ textarea {
 }
 
 
-/******** Button Effects ********/
+/******************************************************************************* 
+BUTTON EFFECTS
+*******************************************************************************/
 .button {
 	width: 100%;
         

@@ -9,12 +9,80 @@ class users_controller extends base_controller {
         echo "This is the index page";
     }
 
+    //Displays the signup information (N/A. Displayed in index page.)
     public function signup() {
-        echo "This is the signup page";
+        # Set up the view
+    	$this->template->content = View::instance('v_users_signup');
+    	$this->template->title   = "Sign Up";
+        
+    	# Render the view
+    	echo $this->template;
+    }
+    
+    //Processes the signup information
+    public function p_signup() {
+    	
+    	# Gets current unix timestamp(uses static Time method from framework)
+    	$_POST['created'] = Time::now();
+    	
+    	# Encrypts password (Salt = random string to make it more complicated)
+    	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+    	
+    	# Give each user a token which will allow re-entry into website (ie- ticket at an event)
+    	# Combination of 1. Token Salt, 2. Users Email, 3. Random string
+    	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+    	
+    	# Echos array in order to test/debug
+    	echo "<pre>";
+    	print_r($_POST);
+    	echo "</pre>";
+    	
+    	DB::instance(DB_NAME)->insert_row('users', $_POST);
+    	
+    	#Redirects to different page
+    	Router::redirect('/users/profile/');
     }
 
+    //Display the login page (N/A. Displayed in index page.)
     public function login() {
-        echo "This is the login page";
+        # Set up the view
+    	$this->template->content = View::instance('v_users_login');
+    	$this->template->title   = "Login";
+    	
+    	# Render the view
+    	echo $this->template;
+    }
+    
+    //Process the login information
+    public function p_login(){
+    	
+    	
+    	# Encrypts password (Salt = random string to make it more complicated)
+    	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+    	
+    	echo "<pre>";
+    	print_r($_POST);
+    	echo "</pre>";
+    	
+    	$query = 
+	    	"SELECT token 
+	        FROM users 
+	        WHERE email = '".$_POST['email']."' 
+	        AND password = '".$_POST['password']."'";
+
+    	$token = DB::instance(DB_NAME)->select_field($query);
+    	
+    	# Success
+    	if ($token){
+    		# Sets session cookie to allow for re-entry
+    		# setcookie() = 1. name of cookie, 2. value of cookie, 3. expiration date, 4. Where available (everywhere)
+    		setcookie('token', $token, strtotime('+1 year'), '/');
+    		Router::redirect('/users/profile');
+    	} 
+    	# Fail
+    	else {
+    		Router::redirect('/');
+    	}
     }
 
     public function logout() {
@@ -72,6 +140,43 @@ class users_controller extends base_controller {
     	//You should be separating display from logic so only echo the object itself.
     	//echo $view;
     	
+    }
+    
+    
+    public function insert_db($first, $last){
+    	$insert = "INSERT INTO users
+    			   (first_name, last_name)
+    			   Values
+    			   ('$first', '$last')";
+    	
+    	echo $insert;
+    	
+    	DB::instance(DB_NAME)->query($insert);
+	
+    }
+    
+    
+    public function update_db($email){
+    	$update = "UPDATE users
+    			   SET email = '$email'
+    			   WHERE first_name = 'Audrey'";
+    	
+    	
+    	echo $update;
+    	
+    	DB::instance(DB_NAME)->query($update);
+    }
+    
+    
+    public function test_db(){
+	    $new_user = Array(
+	    		"first_name" => "John",
+	    		"last_name" => "Doe",
+	    		"email" => "jd@gmail.com"
+	    		);
+	    		
+	    DB::instance(DB_NAME)->insert('users', $new_user);
+    
     }
 
 } # end of class

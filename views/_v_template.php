@@ -13,11 +13,6 @@
 	
 </head>
 
-<?php
-	$url = explode('/',$_SERVER['REQUEST_URI']);
-	$dir = $url[1] ? $url[2] : 'index';
-?>
-
 <body <?php if(isset($bodyID)) echo "id='$bodyID'" ?>>
 
 	<?php if(isset($content)) echo $content; ?>

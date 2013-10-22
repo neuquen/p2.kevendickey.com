@@ -4,7 +4,7 @@
 	
 			<div id="stickyNav">
 				<div id="username">Welcome, [USERNAME]</div>
-				<form id="logout" name="logout" action="" method="post">
+				<form id="logout" name="logout" action="/" method="post">
 					<input class="button" type="submit" value="Log Out"/>
 				</form>
 			</div>

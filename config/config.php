@@ -31,10 +31,11 @@ A email designated to receive messages from the server. Examples:
 	define('SYSTEM_EMAIL', 'keven@kevendickey.com'); 
 
 # Default DB name for this app
-	define('DB_NAME', "myapp_com"); 
+	define('DB_NAME', "p2_kevendickey_com"); 
 
 # Timezone
 	define('TIMEZONE', 'America/New_York');
+	define('TIME_FORMAT', 'F j, Y g:ia');
 
 # If your app is going to have outgoing emails, you should fill in your SMTP settings
 # For this you could use gmail SMTP or something like http://sendgrid.com/
@@ -43,5 +44,5 @@ A email designated to receive messages from the server. Examples:
 	//define('SMTP_PASSWORD', '');
 
 # For extra security, you might want to set different salts than what the core uses
-	//define('PASSWORD_SALT', '');
-	//define('TOKEN_SALT', '');
+	define('PASSWORD_SALT', 'DtWSYwK263WxvjSK)s*IS5ueMcXL8@uF7L)G69!Y'); //DO NOT CHANGE
+	define('TOKEN_SALT', 'BHcTt8TeNVxj(F2NCqjRrr%i3j4Aa%utEP0yj%ww'); //DO NOT CHANGE
