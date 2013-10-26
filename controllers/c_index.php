@@ -4,7 +4,7 @@ class index_controller extends base_controller {
 	
 	
 	/*-------------------------------------------------------------------------------------------------
-
+	CONSTRUCTOR
 	-------------------------------------------------------------------------------------------------*/
 	public function __construct() {
 		parent::__construct();
@@ -13,7 +13,7 @@ class index_controller extends base_controller {
 	/*-------------------------------------------------------------------------------------------------
 	Accessed via http://localhost/index/index/
 	-------------------------------------------------------------------------------------------------*/
-	public function index() {
+	public function index($error = NULL) {
 		
 		# Any method that loads a view will commonly start with this
 		# First, set the content of the template with a view file
@@ -21,7 +21,10 @@ class index_controller extends base_controller {
 			
 		# Now set the <title> tag
 			$this->template->title = "SQUAWK";
+			
+		# Pass data to the view	
 			$this->template->bodyID = 'index';
+			$this->template->content->error = $error;
 	
 		# CSS/JS includes
 			$client_files_head = Array('');
@@ -35,6 +38,5 @@ class index_controller extends base_controller {
 			echo $this->template;
 
 	} # End of method
-	
 	
 } # End of class

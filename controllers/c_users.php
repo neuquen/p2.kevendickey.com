@@ -6,7 +6,21 @@ class users_controller extends base_controller {
     } 
 
     public function index() {
-        echo "This is the index page";
+        //$this->template->content = View::instance('v_posts_index');
+		$this->template = View::instance('v_users_index');
+		
+		$query = 'SELECT p.*,
+			             u.first_name,
+			             u.last_name
+				  FROM posts p
+				  JOIN users u
+				  ON p.user_id = u.user_id';
+		
+		$posts = DB::instance(DB_NAME)->select_rows($query);
+		
+		$this->template->content->posts = $posts;
+		
+		echo $this->template;
     }
 
     //Displays the signup information (N/A. Displayed in index page.)
@@ -14,6 +28,7 @@ class users_controller extends base_controller {
         # Set up the view
     	$this->template->content = View::instance('v_users_signup');
     	$this->template->title   = "Sign Up";
+    	
         
     	# Render the view
     	echo $this->template;
@@ -44,10 +59,11 @@ class users_controller extends base_controller {
     }
 
     //Display the login page (N/A. Displayed in index page.)
-    public function login() {
+    public function login($error = NULL) {
         # Set up the view
     	$this->template->content = View::instance('v_users_login');
     	$this->template->title   = "Login";
+    	$this->template->content->error = $error;
     	
     	# Render the view
     	echo $this->template;
@@ -56,13 +72,8 @@ class users_controller extends base_controller {
     //Process the login information
     public function p_login(){
     	
-    	
     	# Encrypts password (Salt = random string to make it more complicated)
     	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-    	
-    	echo "<pre>";
-    	print_r($_POST);
-    	echo "</pre>";
     	
     	$query = 
 	    	"SELECT token 
@@ -81,16 +92,34 @@ class users_controller extends base_controller {
     	} 
     	# Fail
     	else {
-    		Router::redirect('/');
+    		Router::redirect('/index/index/error');
     	}
     }
 
     public function logout() {
-        echo "This is the logout page";
+        #Generate a new token
+        $new_token = sha1(TOKEN_SALT.$this->user->email.Utils::generate_random_string());
+        
+        #Set up Data
+        $data = Array("token" => $new_token);
+        
+        #Update the users table
+        DB::instance(DB_NAME)->update("users", $data, "WHERE token = '".$this->user->token."'");
+        
+        #Delete the other cookie
+        setcookie('token', '', strtotime('-1 year'), '/');
+    	
+    	#Route them to index
+    	Router::redirect('/');
     }
 
     public function profile($user_name = NULL) {
  
+    	if(!$this->user) {
+    		Router::redirect('/');
+    		//die('Please enter a name and password. <a href="/">Login</a>');
+    	}	
+    	
     	# Set up the view
     	$this->template->content = View::instance('v_users_profile');
     	$this->template->title = "SQUAWK";

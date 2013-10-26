@@ -35,7 +35,7 @@ body, html {
 WELCOME PAGE 
 *******************************************************************************/
 #indexContent {
-	padding-top: 150px;
+	margin-top: 150px;
 	position: relative;
 	z-index: 1;
 }
@@ -93,6 +93,17 @@ WELCOME PAGE
 	width: 100%;
 }
 
+
+.error {
+	margin-top: 5px;
+	padding: 2px;
+	background-color: pink;
+	color: red;
+	font-weight: bold;
+	border-radius: 2px;
+	text-align: center;
+	width: 102%;
+}
 
 
 /******************************************************************************* 

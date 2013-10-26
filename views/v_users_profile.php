@@ -3,8 +3,8 @@
 	<div class="fillPage">
 	
 			<div id="stickyNav">
-				<div id="username">Welcome, [USERNAME]</div>
-				<form id="logout" name="logout" action="/" method="post">
+				<div id="username">Welcome<?php if($user) echo ', '.$user->first_name; ?></div>
+				<form id="logout" name="logout" action="/users/logout" method="post">
 					<input class="button" type="submit" value="Log Out"/>
 				</form>
 			</div>
@@ -14,11 +14,15 @@
 
 		<div id="left">
 			<div class="menuItem" id="addPost">
-				<form id="post" name="post" action="" method="post">
-					<textarea name="msg" rows="5" required></textarea>
-					<input pattern=".{3,}" class="button" name="submit" type="submit" value="SQUAWK!"/>
+				<form id="post" name="post" action="/posts/p_add" method="post">
+					<textarea name="content" rows="5" required></textarea>
+					<input class="button" type="submit" value="SQUAWK!"/>
 				</form>
 			</div>
+			
+			
+			
+			
 			
 			<div class="menuItem">
 				<p>FRIENDS</p>
@@ -37,9 +41,19 @@
 		</div>
 		
 		<div id="right">
-			<div class="menuItem" >
+			<?php foreach($posts as $post): ?>
+				<div class="menuItem" >
+				<?=$post['first_name']?><br>
+				<hr>
+				<?=$post['content']?><br><br>
+				</div>
+			<?php endforeach; ?>
+			
+			
+			
+			
 				
-			</div>
+			
 			
 			<div class="menuItem" >
 				<p>STUFF AND THINGS</p>
