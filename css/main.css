@@ -1,5 +1,5 @@
 /******************************************************************************* 
-GLOBAL
+ GLOBAL
 *******************************************************************************/
 body, html {
 	margin: 0;
@@ -30,9 +30,26 @@ body, html {
 	left: 0;
 }
 
+.menuItem {
+	margin: 0px 10px 10px 10px;
+
+	background-color: #FCFAEE;
+	padding: 10px 10px 0 10px;
+	border:1px solid;
+	border-radius: 10px;
+	width: 100%;
+	position: relative;
+	z-index: 1;
+
+	-webkit-box-shadow: 2px 2px 0px black;
+	   -moz-box-shadow: 2px 2px 0px black;
+	        box-shadow: 2px 2px 0px black;
+	
+}
+
 
 /******************************************************************************* 
-WELCOME PAGE 
+ WELCOME PAGE 
 *******************************************************************************/
 #indexContent {
 	margin-top: 150px;
@@ -42,7 +59,7 @@ WELCOME PAGE
 
 #welcome {
 	margin-left: 15%;
-	margin-top: 150px;
+	margin-top: 100px;
 	text-align: center;
 	vertical-align: middle;
 	float:left;
@@ -107,7 +124,7 @@ WELCOME PAGE
 
 
 /******************************************************************************* 
-PROFILE
+ PROFILE
 *******************************************************************************/
 .fillPage {
 	height: 100%;
@@ -119,9 +136,9 @@ PROFILE
 	/*background-color: rgba(255,255,255, .50);*/
 	background-repeat:repeat;
 	min-height: 100%;
-	margin: 0 20% 0 20%;
+	margin: 0 15%;
 	overflow: hidden; /* Removes background-color gap at end of page in IE */
-	min-width: 600px;
+	min-width: 750px;
 	position: relative;
 	z-index: 1;
 }
@@ -141,19 +158,37 @@ PROFILE
     float: left;
     position: fixed;
 }
+
+	#left .menuItem {
+	padding: 10px;
+	}
     
 #right{
     margin-left: 290px;
     margin-right: 50px;
 }
 
+	#right .menuItem {
+	padding: 0;
+	overflow: hidden;
+	}
+	
+
 #left, #right {
 	padding-top: 70px;
-	
 }
 
 .clear{
     clear: both;
+}
+
+.time {
+	float: right;
+}
+
+hr {
+	background-color: black;
+	border: 1px solid black;
 }
 
 #stickyNav {
@@ -166,22 +201,15 @@ PROFILE
 	padding: 10px;
 }
 
-.menuItem {
-	margin: 0px 10px 10px 10px;
-	
-	background-color: #FCFAEE;
+.topMenu {
+	font-family: 'Poller One', cursive;
+	background-color: rgba(251,180,80, .75);
+	padding: 5px 10px;
+	color: white;
+}
+
+.bottomMenu {
 	padding: 10px;
-	border:1px solid;
-	border-radius: 15px;
-	width: 100%;
-	position: relative;
-	z-index: 1;
-	
-	
-	-webkit-box-shadow: 2px 2px 0px  black;
-	   -moz-box-shadow: 2px 2px 0px  black;
-	        box-shadow: 2px 2px 0px black;
-	
 }
 
 textarea {
@@ -196,7 +224,7 @@ textarea {
 
 
 /******************************************************************************* 
-BUTTON EFFECTS
+ BUTTON EFFECTS
 *******************************************************************************/
 .button {
 	width: 100%;
@@ -249,4 +277,22 @@ BUTTON EFFECTS
 .button:active {
     position:relative;
     top:1px;
+}
+
+/******************************************************************************* 
+ MEDIA QUERIES
+*******************************************************************************/
+@media (max-width: 1024px){
+    #profileContent {
+		margin: 0 5%;
+	}
+	
+	#indexContent {
+		margin-right: 100px;
+	}
+	
+	#bird img {
+		width: 300px;
+		height: auto;
+	}
 }

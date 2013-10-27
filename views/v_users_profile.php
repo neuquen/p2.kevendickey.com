@@ -20,21 +20,26 @@
 				</form>
 			</div>
 			
-			
-			
-			
-			
 			<div class="menuItem">
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
-				<p>FRIENDS</p>
+				
+			<?php foreach($users as $user): ?>
+
+			    <!-- Print this user's name -->
+			    <?=$user['first_name']?> <?=$user['last_name']?>
+			
+			    <!-- If there exists a connection with this user, show a unfollow link -->
+			    <?php if(isset($connections[$user['user_id']])): ?>
+			        <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
+			
+			    <!-- Otherwise, show the follow link -->
+			    <?php else: ?>
+			        <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+			    <?php endif; ?>
+			
+			    <br><br>
+			
+			<?php endforeach; ?>
+				
 			</div>
 
 			
@@ -43,78 +48,17 @@
 		<div id="right">
 			<?php foreach($posts as $post): ?>
 				<div class="menuItem" >
-				<?=$post['first_name']?><br>
-				<hr>
-				<?=$post['content']?><br><br>
+					<div class="topMenu" >
+						<div class="time">
+							<?=Time::display($post['created'])?>
+						</div>
+						<?=$post['first_name']?>
+					</div>	
+					<div class="bottomMenu">
+						<?=$post['content']?>
+					</div>
 				</div>
 			<?php endforeach; ?>
-			
-			
-			
-			
-				
-			
-			
-			<div class="menuItem" >
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-			</div>
-			
-			<div class="menuItem" >
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-			</div>
-			
-			<div class="menuItem" >
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-			</div>
-			
-			<div class="menuItem" >
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-				<p>STUFF AND THINGS</p>
-			</div>
-			
 		</div>
 		<div class="clear"></div>	
 	</div>

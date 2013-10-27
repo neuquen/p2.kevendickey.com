@@ -6,21 +6,7 @@ class users_controller extends base_controller {
     } 
 
     public function index() {
-        //$this->template->content = View::instance('v_posts_index');
-		$this->template = View::instance('v_users_index');
-		
-		$query = 'SELECT p.*,
-			             u.first_name,
-			             u.last_name
-				  FROM posts p
-				  JOIN users u
-				  ON p.user_id = u.user_id';
-		
-		$posts = DB::instance(DB_NAME)->select_rows($query);
-		
-		$this->template->content->posts = $posts;
-		
-		echo $this->template;
+        echo "This is the index page";
     }
 
     //Displays the signup information (N/A. Displayed in index page.)
@@ -28,7 +14,6 @@ class users_controller extends base_controller {
         # Set up the view
     	$this->template->content = View::instance('v_users_signup');
     	$this->template->title   = "Sign Up";
-    	
         
     	# Render the view
     	echo $this->template;
@@ -47,11 +32,7 @@ class users_controller extends base_controller {
     	# Combination of 1. Token Salt, 2. Users Email, 3. Random string
     	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
     	
-    	# Echos array in order to test/debug
-    	echo "<pre>";
-    	print_r($_POST);
-    	echo "</pre>";
-    	
+    	# Peform SQL Query
     	DB::instance(DB_NAME)->insert_row('users', $_POST);
     	
     	#Redirects to different page
@@ -115,6 +96,7 @@ class users_controller extends base_controller {
 
     public function profile($user_name = NULL) {
  
+    	# If the user isn't authenticated, redirect them to index
     	if(!$this->user) {
     		Router::redirect('/');
     		//die('Please enter a name and password. <a href="/">Login</a>');
@@ -125,87 +107,26 @@ class users_controller extends base_controller {
     	$this->template->title = "SQUAWK";
     	$this->template->bodyID = 'profile';
     	
-    	# Define the Array for CSS content
-    	$client_files_head = Array (
-    		'/css/profile.css', 
-    		'/css/master.css'
-    	);
     	
-    	# Use special load_client_files method to load files to page
-    	$this->template->client_files_head = Utils::load_client_files($client_files_head);
+    	# Get posts data from the DB (References posts_controller index method which grabs the DB data)
+    	$posts = new posts_controller();
+    	$p = $posts->index();
     	
-    	# Define the Array for JS content
-    	$client_files_body = Array (
-    		'/js/profile.js',
-    		'/js/master.js'
-    	);
+    	$users = new posts_controller();
+    	$u = $users->users();
     	
-    	# Use special load_client_files method to load files to page
-    	$this->template->client_files_body = Utils::load_client_files($client_files_body);
-    	 
+    	$connections = new posts_controller();
+    	$c = $connections->connections();
+    	
     	
     	# Pass the data to the view
     	$this->template->content->user_name = $user_name;
+    	$this->template->content->posts = $p;
+    	$this->template->content->users = $u;
+    	$this->template->content->connections = $c;
     	
     	# Display the view
     	echo $this->template;
-    	
-    	/* Alternate syntax
-    	 * 
-    	 *  $content = View::instance('v_users_profile');
-    	 *	$content->user_name = $user_name;
-    	 *	$this->template->content = $content;
-    	 * 
-    	 */
-    	
-    	
-    	//Creating the variable (defaults to public) view which sets it equal
-    	//to the instance method inside of the static class "View".  Pass
-    	//in the name of the view as a parameter, without the extension.
-    	//$view = View::instance('v_users_profile');
-    	
-    	//$view->user_name = $user_name;
-
-    	//You should be separating display from logic so only echo the object itself.
-    	//echo $view;
-    	
-    }
-    
-    
-    public function insert_db($first, $last){
-    	$insert = "INSERT INTO users
-    			   (first_name, last_name)
-    			   Values
-    			   ('$first', '$last')";
-    	
-    	echo $insert;
-    	
-    	DB::instance(DB_NAME)->query($insert);
-	
-    }
-    
-    
-    public function update_db($email){
-    	$update = "UPDATE users
-    			   SET email = '$email'
-    			   WHERE first_name = 'Audrey'";
-    	
-    	
-    	echo $update;
-    	
-    	DB::instance(DB_NAME)->query($update);
-    }
-    
-    
-    public function test_db(){
-	    $new_user = Array(
-	    		"first_name" => "John",
-	    		"last_name" => "Doe",
-	    		"email" => "jd@gmail.com"
-	    		);
-	    		
-	    DB::instance(DB_NAME)->insert('users', $new_user);
-    
     }
 
 } # end of class
