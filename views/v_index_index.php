@@ -23,7 +23,7 @@
 		</div>
 		
 		<div id="signup">
-			<form method="post" action="/users/p_signup/">
+			<form name="signup" action="/users/p_signup" method="post">
 				<h3>Need to SQUAWK? Sign up</h3>
 				<input class="textField" type="text" name="first_name" placeholder="First Name" required/><br/>
 				<input class="textField" type="text" name="last_name" placeholder="Last Name" required/><br/>

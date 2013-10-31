@@ -20,25 +20,27 @@
 				</form>
 			</div>
 			
-			<div class="menuItem">
+			<div class="menuItem" id="squawkers">
+				<div class="topSquawkers">
+					Other Squawkers:
+				</div>
+				<?php foreach($users as $user): ?>
+					<div class="bottomSquawkers">
+				    <!-- Print this user's name -->
+				    <?=$user['first_name']?> <?=$user['last_name']?>
 				
-			<?php foreach($users as $user): ?>
-
-			    <!-- Print this user's name -->
-			    <?=$user['first_name']?> <?=$user['last_name']?>
-			
-			    <!-- If there exists a connection with this user, show a unfollow link -->
-			    <?php if(isset($connections[$user['user_id']])): ?>
-			        <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
-			
-			    <!-- Otherwise, show the follow link -->
-			    <?php else: ?>
-			        <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
-			    <?php endif; ?>
-			
-			    <br><br>
-			
-			<?php endforeach; ?>
+				    <!-- If there exists a connection with this user, show a unfollow link -->
+				    <?php if(isset($connections[$user['user_id']])): ?>
+				        <a id="unfollow" href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
+				
+				    <!-- Otherwise, show the follow link -->
+				    <?php else: ?>
+				        <a id="follow" href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+				    <?php endif; ?>
+				
+				    
+					</div>
+				<?php endforeach; ?>
 				
 			</div>
 
@@ -50,8 +52,13 @@
 				<div class="menuItem" >
 					<div class="topMenu" >
 						<div class="time">
+							<form action="/posts/p_delete/<?=$post['post_id']?>" method="post">
+								<input type="submit" name="delete" value="X"/>
+						    </form>
 							<?=Time::display($post['created'])?>
+							
 						</div>
+						
 						<?=$post['first_name']?>
 					</div>	
 					<div class="bottomMenu">
