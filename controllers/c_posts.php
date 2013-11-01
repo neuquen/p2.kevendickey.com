@@ -27,9 +27,7 @@ class posts_controller extends base_controller {
 		
 		DB::instance(DB_NAME)->insert('posts', $_POST);
 		
-		print_r($_POST);
-		
-		//Router::redirect('/users/profile');
+		Router::redirect('/users/profile');
 	}
 	
 	public function p_delete($post_id){
@@ -44,69 +42,6 @@ class posts_controller extends base_controller {
 
 	}
 	
-/* TRANSFERRED TO CORE/LIBRARIES/POST.PHP
-	//Retrieve stream of all Posts
-	// TODO: Rename to getPosts or getAllPosts()
-	public function index(){
-		
-		//$this->template->content = View::instance('v_posts_index');
-		//$this->template->content = View::instance('v_users_profile');
-		
-		$query = 'SELECT p.user_id AS post_user_id,
-						 utu.user_id AS follower_id,
-			             u.first_name,
-			             u.last_name,
-				         p.content,
-						 p.created
-				  FROM posts p
-				  JOIN users_users utu
-				  ON p.user_id = utu.user_id_followed
-				  JOIN users u
-				  ON p.user_id = u.user_id
-				  WHERE utu.user_id = '.$this->user->user_id.'
-				  ORDER BY post_id desc';
-		
-		$posts = DB::instance(DB_NAME)->select_rows($query);
-		
-		//$this->template->content->posts = $posts;
-		
-		//echo $this->template;
-		return $posts;
-	}
-	
-	public function users(){
-		
-		//$this->template->content = View::instance("v_users_profile");
-		
-		# Select all users
-		$query = "SELECT * FROM users";
-		
-		$users = DB::instance(DB_NAME)->select_rows($query);
-		
-
-		//$this->template->content->users = $users;
-		
-		
-		return $users;
-		
-	}
-	
-	public function connections(){
-		
-		//$this->template->content = View::instance("v_users_profile");
-		
-		# Select everyone that the current logged-in user is following
-		$query = "SELECT *
-				  FROM users_users
-				  WHERE user_id = ".$this->user->user_id;
-		
-		$connections = DB::instance(DB_NAME)->select_array($query, 'user_id_followed');
-		
-		//$this->template->content->connections = $connections;
-		
-		return $connections;
-	}
-*/
 	
 	public function follow($user_id_followed) {
 	
@@ -134,6 +69,21 @@ class posts_controller extends base_controller {
 	    # Send them back
 	    Router::redirect("/users/profile");
 	
+	}
+	
+	
+	public function like ($post_id){
+		$data = Array("`like`" => "Y");
+		DB::instance(DB_NAME)->update("posts", $data, "WHERE post_id =".$post_id);
+		
+		Router::redirect("/users/profile");
+	}
+	
+	public function dislike ($post_id){
+		$data = Array("`dislike`" => "Y");
+		DB::instance(DB_NAME)->update("posts", $data, "WHERE post_id =".$post_id);
+		
+		Router::redirect("/users/profile");
 	}
 	
 

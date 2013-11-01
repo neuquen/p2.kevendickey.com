@@ -143,7 +143,7 @@ body, html {
 	background-repeat:repeat;
 	min-height: 100%;
 	margin: 0 15%;
-	overflow: hidden; /* Removes background-color gap at end of page in IE */
+	/*overflow: hidden;  Removes background-color gap at end of page in IE */
 	min-width: 750px;
 	position: relative;
 	z-index: 1;
@@ -249,6 +249,16 @@ hr {
 	padding: 5px 10px;
 	color: white;
 	border-bottom: 1px solid black;
+}
+
+.like img {
+	width: 20px;
+	float: right;
+	padding: 0 0 3px 3px;
+}
+
+.likeUser {
+	float: right;
 }
 
 .bottomMenu {

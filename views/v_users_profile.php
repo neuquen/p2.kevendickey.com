@@ -50,10 +50,11 @@
 		<div id="right">
 			<?php foreach($posts as $post): ?>
 				<div class="menuItem" >
-					<div class="topMenu" >
+					
+					<div class="topMenu">
 						<div class="time">
 							<form action="/posts/p_delete/<?=$post['post_id']?>" method="post">
-								<input type="submit" name="delete" value="X"/>
+								<input type="submit" name="post_id" value="X"/>
 						    </form>
 							<?=Time::display($post['created'])?>
 							
@@ -62,7 +63,25 @@
 						<?=$post['first_name']?>
 					</div>	
 					<div class="bottomMenu">
+						<div class="like">
+							<!-- If someone likes or dislikes a post, show a highlighted picture and include text -->
+							<?php if($post['dislike'] == "Y"): ?>
+							<div class="likeUser"><?= $user->first_name ?> dislikes this</div>
+							<a href="/posts/dislike/<?=$post['post_id']?>"><img src="/img/thumbsdown.png" alt=""></a>
+							<!-- Otherwise, show the normal links -->
+							<?php else: ?>
+							<a href="/posts/dislike/<?=$post['post_id']?>"><img src="/img/thumbsdown-grey.png" alt=""></a>
+							<?php endif; ?>
+							
+							<?php if($post['like'] == "Y"): ?>
+							<div class="likeUser"><?php $user->first_name ?> likes this</div>
+							<a href="/posts/like/<?=$post['post_id']?>"><img src="/img/thumbsup.png" alt=""></a>
+							<?php else: ?>
+							<a href="/posts/like/<?=$post['post_id']?>"><img src="/img/thumbsup-grey.png" alt=""></a>
+							<?php endif; ?>
+						</div>
 						<?=$post['content']?>
+						
 					</div>
 				</div>
 			<?php endforeach; ?>

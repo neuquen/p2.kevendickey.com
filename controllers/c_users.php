@@ -130,15 +130,6 @@ class users_controller extends base_controller {
     	$this->template->content->users = $u;
     	$this->template->content->connections = $c;
     	
-    	$query= 'SELECT * FROM posts';
-    	
-    	$post = DB::instance(DB_NAME)->select_field($query);
-    	
-    	$this->template->content->posts = $post;
-    	
-    	
-    	
-    	
     	# Display the view
     	echo $this->template;
     }
