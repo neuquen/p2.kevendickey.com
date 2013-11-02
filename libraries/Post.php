@@ -13,7 +13,9 @@
 						 p.created,
 						 p.post_id,
 						 p.dislike,
-						 p.like
+						 p.like,
+						 p.who_likes,
+						 p.who_dislikes
 				  FROM posts p
 				  JOIN users_users utu
 				  ON p.user_id = utu.user_id_followed

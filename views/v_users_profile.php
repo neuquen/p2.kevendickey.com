@@ -19,7 +19,7 @@
 					<input class="button" type="submit" value="SQUAWK!"/>
 				</form>
 			</div>
-			
+			<?php $currentUser = $user->first_name ?>
 			<div class="menuItem" id="squawkers">
 				<div class="topSquawkers">
 					Other Squawkers:
@@ -66,18 +66,18 @@
 						<div class="like">
 							<!-- If someone likes or dislikes a post, show a highlighted picture and include text -->
 							<?php if($post['dislike'] == "Y"): ?>
-							<div class="likeUser"><?= $user->first_name ?> dislikes this</div>
-							<a href="/posts/dislike/<?=$post['post_id']?>"><img src="/img/thumbsdown.png" alt=""></a>
+							<div class="likeUser"><?=$post['who_dislikes'] ?> dislikes this</div>
+							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown.png" alt=""></a>
 							<!-- Otherwise, show the normal links -->
 							<?php else: ?>
-							<a href="/posts/dislike/<?=$post['post_id']?>"><img src="/img/thumbsdown-grey.png" alt=""></a>
+							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown-grey.png" alt=""></a>
 							<?php endif; ?>
 							
 							<?php if($post['like'] == "Y"): ?>
-							<div class="likeUser"><?php $user->first_name ?> likes this</div>
-							<a href="/posts/like/<?=$post['post_id']?>"><img src="/img/thumbsup.png" alt=""></a>
+							<div class="likeUser"><?=$post['who_likes'] ?> likes this</div>
+							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup.png" alt=""></a>
 							<?php else: ?>
-							<a href="/posts/like/<?=$post['post_id']?>"><img src="/img/thumbsup-grey.png" alt=""></a>
+							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt=""></a>
 							<?php endif; ?>
 						</div>
 						<?=$post['content']?>

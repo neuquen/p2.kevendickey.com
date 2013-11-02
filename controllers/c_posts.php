@@ -72,16 +72,28 @@ class posts_controller extends base_controller {
 	}
 	
 	
-	public function like ($post_id){
-		$data = Array("`like`" => "Y");
-		DB::instance(DB_NAME)->update("posts", $data, "WHERE post_id =".$post_id);
+	public function like ($post_id, $user){
+		$like = Array("`like`" => "Y");
+		DB::instance(DB_NAME)->update("posts", $like, "WHERE post_id =".$post_id);
+		
+		$user = "UPDATE posts
+				 SET who_likes = '$user'
+				 WHERE post_id = ".$post_id;
+		
+		DB::instance(DB_NAME)->query($user);
 		
 		Router::redirect("/users/profile");
 	}
 	
-	public function dislike ($post_id){
-		$data = Array("`dislike`" => "Y");
-		DB::instance(DB_NAME)->update("posts", $data, "WHERE post_id =".$post_id);
+	public function dislike ($post_id, $user){
+		$dislike = Array("`dislike`" => "Y");
+		DB::instance(DB_NAME)->update("posts", $dislike, "WHERE post_id =".$post_id);
+		
+		$user = "UPDATE posts
+				 SET who_dislikes = '$user'
+				 WHERE post_id = ".$post_id;
+		
+		DB::instance(DB_NAME)->query($user);
 		
 		Router::redirect("/users/profile");
 	}

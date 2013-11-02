@@ -259,6 +259,7 @@ hr {
 
 .likeUser {
 	float: right;
+	padding: 5px;
 }
 
 .bottomMenu {
