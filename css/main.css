@@ -166,7 +166,7 @@ body, html {
 
 #squawkers {
 	overflow: hidden;
-	width: 270px;
+	width: 320px;
 	
 }
 
@@ -208,7 +208,7 @@ body, html {
 	}
 
 #left {
-    width: 250px;
+    width: 300px;
     float: left;
     position: fixed;
 }
@@ -218,7 +218,7 @@ body, html {
 	}
     
 #right{
-    margin-left: 290px;
+    margin-left: 335px;
     margin-right: 50px;
 }
 
