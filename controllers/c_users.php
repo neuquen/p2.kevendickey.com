@@ -4,21 +4,7 @@ class users_controller extends base_controller {
     public function __construct() {
         parent::__construct();
     } 
-
-    public function index() {
-        echo "This is the index page";
-    }
-/*
-    //Displays the signup information (N/A. Displayed in index page.)
-    public function signup() {
-        # Set up the view
-    	$this->template->content = View::instance('v_users_signup');
-    	$this->template->title   = "Sign Up";
-        
-    	# Render the view
-    	echo $this->template;
-    }
-*/   
+  
     //Processes the signup information
     public function p_signup() {
     	
@@ -43,18 +29,6 @@ class users_controller extends base_controller {
 	    # Send them to their profile
 	    Router::redirect('/users/profile');
     }
-/*
-    //Display the login page (N/A. Displayed in index page.)
-    public function login() {
-        # Set up the view
-    	$this->template->content = View::instance('v_users_login');
-    	$this->template->title   = "Login";
-    	
-    	# Render the view
-    	echo $this->template;
-    }
-    
-*/
     
     //Process the login information
     public function p_login(){
@@ -113,7 +87,7 @@ class users_controller extends base_controller {
     	$this->template->title = "SQUAWK";
     	$this->template->bodyID = 'profile';
     	
-    	#Reference Post class (Core/Libraries/Post.php)
+    	#Reference Post class (/libraries/Post.php)
     	$posts = new Post();
     	
     	# Get stream of posts from the DB

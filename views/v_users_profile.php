@@ -24,6 +24,7 @@
 				<div class="topSquawkers">
 					Other Squawkers:
 				</div>
+				<div class="scrollbar">
 				<?php foreach($users as $user): ?>
 					<div class="bottomSquawkers">
 				    <!-- Print this user's name -->
@@ -43,14 +44,13 @@
 				<?php endforeach; ?>
 				
 			</div>
-
+			</div>
 			
 		</div>
 		
 		<div id="right">
 			<?php foreach($posts as $post): ?>
 				<div class="menuItem" >
-					
 					<div class="topMenu">
 						<div class="time">
 							<form action="/posts/p_delete/<?=$post['post_id']?>" method="post">
@@ -66,7 +66,7 @@
 						<div class="like">
 							<!-- If someone likes or dislikes a post, show a highlighted picture and include text -->
 							<?php if($post['dislike'] == "Y"): ?>
-							<div class="likeUser"><?=$post['who_dislikes'] ?> dislikes this</div>
+							<div class="likeUser"><strong><?=$post['who_dislikes'] ?> dislikes this</strong></div>
 							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown.png" alt=""></a>
 							<!-- Otherwise, show the normal links -->
 							<?php else: ?>
@@ -74,7 +74,7 @@
 							<?php endif; ?>
 							
 							<?php if($post['like'] == "Y"): ?>
-							<div class="likeUser"><?=$post['who_likes'] ?> likes this</div>
+							<div class="likeUser"><strong><?=$post['who_likes'] ?> likes this</strong></div>
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup.png" alt=""></a>
 							<?php else: ?>
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt=""></a>

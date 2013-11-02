@@ -11,10 +11,6 @@
 	<!-- Controller Specific JS/CSS -->
 	<?php if(isset($client_files_head)) echo $client_files_head; ?>
 	
-	
-	
-	
-	
 </head>
 
 <body <?php if(isset($bodyID)) echo "id='$bodyID'" ?>>

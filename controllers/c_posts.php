@@ -9,15 +9,6 @@ class posts_controller extends base_controller {
 		parent::__construct();
 	}
 	
-	//Add Posts
-	public function add(){
-		
-		//$this->template = View::instance("v_posts_add");
-		$this->template = View::instance("v_users_profile");
-		
-		echo $this->template;
-	}
-	
 	//Add Posts Functionality
 	public function p_add(){
 		
@@ -73,29 +64,23 @@ class posts_controller extends base_controller {
 	
 	
 	public function like ($post_id, $user){
-		$like = Array("`like`" => "Y");
+		$like = Array("`like`" => "Y"); //Had to include the backticks because "like" is a reserved word in SQL
 		DB::instance(DB_NAME)->update("posts", $like, "WHERE post_id =".$post_id);
 		
-		$user = "UPDATE posts
-				 SET who_likes = '$user'
-				 WHERE post_id = ".$post_id;
+		$user = Array("who_likes" => $user);
+		DB::instance(DB_NAME)->update("posts", $user, "WHERE post_id =".$post_id);
 		
-		DB::instance(DB_NAME)->query($user);
-		
-		Router::redirect("/users/profile");
+		Router::redirect("/users/profile/");
 	}
 	
-	public function dislike ($post_id, $user){
-		$dislike = Array("`dislike`" => "Y");
+	public function dislike ($post_id, $currentUser){
+		$dislike = Array("dislike" => "Y");
 		DB::instance(DB_NAME)->update("posts", $dislike, "WHERE post_id =".$post_id);
 		
-		$user = "UPDATE posts
-				 SET who_dislikes = '$user'
-				 WHERE post_id = ".$post_id;
+		$user = Array("who_dislikes" => $currentUser);
+		DB::instance(DB_NAME)->update("posts", $user, "WHERE post_id =".$post_id);
 		
-		DB::instance(DB_NAME)->query($user);
-		
-		Router::redirect("/users/profile");
+		Router::redirect("/users/profile/");
 	}
 	
 

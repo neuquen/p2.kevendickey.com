@@ -7,6 +7,7 @@
 		<div id="welcome">
 			<h1>Welcome to SQUAWK!</h1>
 			<h2>A home for all you loud people who need an audience...</h2>
+			<h3>+1 Features: Delete Posts, Like/Dislike Posts</h3>
 		</div>
 		
 		
