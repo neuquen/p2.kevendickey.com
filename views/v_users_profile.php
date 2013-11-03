@@ -80,7 +80,7 @@
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt=""></a>
 							<?php endif; ?>
 						</div>
-						<?=$post['content']?>
+						<?=strip_tags($post['content'])?>
 						
 					</div>
 				</div>
