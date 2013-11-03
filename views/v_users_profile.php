@@ -1,4 +1,7 @@
 
+	<?php $currentUser = $user->first_name ?>
+	<?php $currentUserID = $user->user_id ?>
+
 
 	<div class="fillPage">
 	
@@ -19,7 +22,7 @@
 					<input class="button" type="submit" value="SQUAWK!"/>
 				</form>
 			</div>
-			<?php $currentUser = $user->first_name ?>
+
 			<div class="menuItem" id="squawkers">
 				<div class="topSquawkers">
 					Other Squawkers:
@@ -38,8 +41,7 @@
 				    <?php else: ?>
 				        <a id="follow" href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
 				    <?php endif; ?>
-				
-				    
+
 					</div>
 				<?php endforeach; ?>
 				
@@ -53,18 +55,22 @@
 				<div class="menuItem" >
 					<div class="topMenu">
 						<div class="time">
+							
+							<?php if($currentUserID == $post['post_user_id']): ?>
 							<form action="/posts/p_delete/<?=$post['post_id']?>" method="post">
 								<input type="submit" name="post_id" value="X"/>
 						    </form>
+						    <?php else: ?> <?php endif;?>
+						    
 							<?=Time::display($post['created'])?>
 							
 						</div>
-						
 						<?=$post['first_name']?>
 					</div>	
 					<div class="bottomMenu">
 						<div class="like">
-							<!-- If someone likes or dislikes a post, show a highlighted picture and include text -->
+						
+							<!-- If someone dislikes a post, show a highlighted picture and include text -->
 							<?php if($post['dislike'] == "Y"): ?>
 							<div class="likeUser"><strong><?=$post['who_dislikes'] ?> dislikes this</strong></div>
 							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown.png" alt="Thumbs Down"></a>
@@ -73,12 +79,15 @@
 							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown-grey.png" alt="Thumbs Down"></a>
 							<?php endif; ?>
 							
+							<!-- If someone likes a post, show a highlighted picture and include text -->
 							<?php if($post['like'] == "Y"): ?>
 							<div class="likeUser"><strong><?=$post['who_likes'] ?> likes this</strong></div>
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup.png" alt="Thumbs Up"></a>
+							<!-- Otherwise, show the normal links -->
 							<?php else: ?>
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt="Thumbs Up"></a>
 							<?php endif; ?>
+							
 						</div>
 						<?=strip_tags($post['content'])?>
 						
@@ -87,7 +96,7 @@
 			<?php endforeach; ?>
 		</div>
 		<div class="clear"></div>	
-	</div>
+	</div> <!-- Profile Content -->
 	<div id="bird">
 		<img alt="Parrot" src="/img/parrot.png">
 	</div>
