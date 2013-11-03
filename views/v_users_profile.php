@@ -67,17 +67,17 @@
 							<!-- If someone likes or dislikes a post, show a highlighted picture and include text -->
 							<?php if($post['dislike'] == "Y"): ?>
 							<div class="likeUser"><strong><?=$post['who_dislikes'] ?> dislikes this</strong></div>
-							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown.png" alt=""></a>
+							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown.png" alt="Thumbs Down"></a>
 							<!-- Otherwise, show the normal links -->
 							<?php else: ?>
-							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown-grey.png" alt=""></a>
+							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown-grey.png" alt="Thumbs Down"></a>
 							<?php endif; ?>
 							
 							<?php if($post['like'] == "Y"): ?>
 							<div class="likeUser"><strong><?=$post['who_likes'] ?> likes this</strong></div>
-							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup.png" alt=""></a>
+							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup.png" alt="Thumbs Up"></a>
 							<?php else: ?>
-							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt=""></a>
+							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt="Thumbs Up"></a>
 							<?php endif; ?>
 						</div>
 						<?=strip_tags($post['content'])?>

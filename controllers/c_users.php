@@ -18,8 +18,11 @@ class users_controller extends base_controller {
     	# Combination of 1. Token Salt, 2. Users Email, 3. Random string
     	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
     	
-    	# Insert the new user    
-	    $new_user = DB::instance(DB_NAME)->insert_row('users', $_POST);
+    	# Strip tags from user input before they reach the DB (prevents XSS)
+    	$clean = array_map('strip_tags', $_POST);
+
+    	# Insert the new user
+    	$new_user = DB::instance(DB_NAME)->insert_row('users', $clean);
     	
     	# Go ahead and log them in
 	    if($new_user) {
@@ -98,7 +101,6 @@ class users_controller extends base_controller {
     	$c = $posts->getConnections($this->user->user_id);
     	
     	# Pass the data to the view
-    	
     	$this->template->content->user_name = $user_name;
     	$this->template->content->posts = $p;
     	$this->template->content->users = $u;

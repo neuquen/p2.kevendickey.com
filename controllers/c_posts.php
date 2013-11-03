@@ -16,8 +16,13 @@ class posts_controller extends base_controller {
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
 		
-		DB::instance(DB_NAME)->insert('posts', $_POST);
+		# Strip tags from user input before they reach the DB (prevents XSS)
+		$clean = array_map('strip_tags', $_POST);
 		
+		# Insert posts into database
+		DB::instance(DB_NAME)->insert('posts', $clean);
+		
+		# Redirect to profile
 		Router::redirect('/users/profile');
 	}
 	
@@ -63,11 +68,11 @@ class posts_controller extends base_controller {
 	}
 	
 	
-	public function like ($post_id, $user){
+	public function like ($post_id, $currentUser){
 		$like = Array("`like`" => "Y"); //Had to include the backticks because "like" is a reserved word in SQL
 		DB::instance(DB_NAME)->update("posts", $like, "WHERE post_id =".$post_id);
 		
-		$user = Array("who_likes" => $user);
+		$user = Array("who_likes" => $currentUser);
 		DB::instance(DB_NAME)->update("posts", $user, "WHERE post_id =".$post_id);
 		
 		Router::redirect("/users/profile/");
