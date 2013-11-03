@@ -1,3 +1,6 @@
+
+	
+	
 	<?php if($user):?>
 		<?php Router::redirect('/users/profile/'); ?>
 	<?php else: ?>
@@ -12,7 +15,7 @@
 		
 		
 		<div id="login">
-			<form name="login" action="/users/p_login" method="post">
+			<form onkeypress="RestrictSpace()" name="login" action="/users/p_login" method="post">
 				<h3>Please Sign In</h3>
 				<input class="textField" type="email" name="email" placeholder="Email Address" required/><br/>
 				<input class="textField" type="password" name="password" placeholder="Password" required/><br/>
@@ -42,3 +45,17 @@
 		
 		
 	<?php endif; ?>
+	
+	
+	<script>
+	// Prevents empty fields in signup form
+	window.onload = function(){
+	    var inp = document.getElementById("signup");
+	    inp.onkeydown = preventSpace;
+	};
+
+	function preventSpace(e){
+	    var e = e || event;
+	    if (e.keyCode == 32) return false;  
+	}
+	</script>
