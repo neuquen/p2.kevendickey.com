@@ -4,8 +4,7 @@
 	<?php if($user):?>
 		<?php Router::redirect('/users/profile/'); ?>
 	<?php else: ?>
-
-
+	
 		<div id="indexContent">
 		<div id="welcome">
 			<h1>Welcome to SQUAWK!</h1>
@@ -15,7 +14,7 @@
 		
 		
 		<div id="login">
-			<form onkeypress="RestrictSpace()" name="login" action="/users/p_login" method="post">
+			<form name="login" action="/users/p_login/" method="post">
 				<h3>Please Sign In</h3>
 				<input class="textField" type="email" name="email" placeholder="Email Address" required/><br/>
 				<input class="textField" type="password" name="password" placeholder="Password" required/><br/>
@@ -34,6 +33,9 @@
 				<input class="textField" type="email" name="email" placeholder="Email Address" required/><br/>
 				<input class="textField" type="password" name="password" placeholder="Password" required/><br/>
 				<input class="button"    type="submit" value="Sign Up" />
+				<?php if(isset($emailError)): ?>
+					<div class='error'>EMAIL TAKEN.  PLEASE TRY AGAIN.</div>
+				<?php endif;?>
 			</form>
 		</div>
 		</div>
@@ -42,27 +44,5 @@
 		<div id="bird">
 			<img src="/img/parrot.png" alt="Parrot">
 		</div>
-		
-		
+
 	<?php endif; ?>
-	
-	
-	<script>
-	// Prevents empty fields in signup form
-	window.onload = function(){
-	    var inp = document.getElementById("signup");
-	    inp.onkeydown = preventSpace;
-	    inp.onpaste = preventPaste;
-	};
-
-	function preventSpace(e){
-	    var e = e || event;
-	    if (e.keyCode == 32) return false;  
-	}
-
-	function preventPaste(e){
-	    var e = e || event;
-	    var data = e.clipboardData.getData("text/plain");
-	    if (data.match(/\s/g)) return false;    
-	}
-	</script>

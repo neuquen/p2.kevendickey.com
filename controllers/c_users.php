@@ -18,19 +18,45 @@ class users_controller extends base_controller {
     	# Combination of 1. Token Salt, 2. Users Email, 3. Random string
     	$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
     	
-    	# Strip tags from user input before they reach the DB (prevents XSS)
-    	$clean = array_map('strip_tags', $_POST);
-
-    	# Insert the new user
-    	$new_user = DB::instance(DB_NAME)->insert_row('users', $clean);
+    	# Check for duplicate email
+    	$uniqueEmail = $this->userObj->confirm_unique_email($_POST['email']);
     	
-    	# Go ahead and log them in
-	    if($new_user) {
-		    setcookie('token',$_POST['token'], strtotime('+1 year'), '/');
-		}
+    	if($uniqueEmail) {
+    	
+	    	# Prevent XSS by converting special characters
+			function clean($string){
+				return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+			}
+			
+			# Allows you to clean an Array
+			$clean = array_map('clean', $_POST);
+			
+	    	# Insert the new user
+	    	$new_user = DB::instance(DB_NAME)->insert_row('users', $clean);
+	    	
+	    	# Go ahead and log them in
+		    if($new_user) {
+			    setcookie('token',$_POST['token'], strtotime('+1 year'), '/');
+			    
+			    # Auto-follow yourself
+			    $data = Array(
+			    		"created" => Time::now(),
+			    		"user_id" => $new_user,
+			    		"user_id_followed" => $new_user
+			    );
+			    
+			    # Create connection in DB
+			    DB::instance(DB_NAME)->insert('users_users', $data);
+			}
+		    
+		    # Send them to their profile
+		    Router::redirect('/users/profile');
 	    
-	    # Send them to their profile
-	    Router::redirect('/users/profile');
+    	} else {
+    		Router::redirect('/index/email/emailError');
+    	}
+    	
+    	
     }
     
     //Process the login information
@@ -39,6 +65,8 @@ class users_controller extends base_controller {
     	# Encrypts password (Salt = random string to make it more complicated)
     	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
     	
+    	
+    	# Get token from DB
     	$query = 
 	    	"SELECT token 
 	        FROM users 
@@ -52,6 +80,7 @@ class users_controller extends base_controller {
     		# Sets session cookie to allow for re-entry
     		# setcookie() = 1. name of cookie, 2. value of cookie, 3. expiration date, 4. Where available (everywhere)
     		setcookie('token', $token, strtotime('+1 year'), '/');
+    		
     		Router::redirect('/users/profile/');
     	} 
     	# Fail
@@ -97,7 +126,7 @@ class users_controller extends base_controller {
     	$p = $posts->getFollowedPosts($this->user->user_id);
     	
     	# Get users/connections (followers) data from DB
-    	$u = $posts->getAllUsers();
+    	$u = $posts->getAllUsers($this->user->user_id);
     	$c = $posts->getConnections($this->user->user_id);
     	
     	# Pass the data to the view

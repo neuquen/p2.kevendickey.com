@@ -47,12 +47,12 @@ body, html {
 	
 }
 
-.menuItem .topMenu .time form {
-	float: right;
-	position: relative;
-	top: -3px;
-	right: -7px; 
-}
+	.menuItem .topMenu .time form {
+		float: right;
+		position: relative;
+		top: -3px;
+		right: -7px; 
+	}
 
 
 /******************************************************************************* 
@@ -179,11 +179,11 @@ body, html {
 		letter-spacing: 1px;
 	}
 	
-	#squawkers #follow {
+	#squawkers .follow {
 		background-color: #3399CC;
 	}
 	
-	#squawkers #unfollow {
+	#squawkers .unfollow {
 		background-color: #FF6666;
 		
 	}

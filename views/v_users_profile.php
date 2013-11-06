@@ -35,11 +35,11 @@
 				
 				    <!-- If there exists a connection with this user, show a unfollow link -->
 				    <?php if(isset($connections[$user['user_id']])): ?>
-				        <a id="unfollow" href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
+				        <a class="unfollow" href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
 				
 				    <!-- Otherwise, show the follow link -->
 				    <?php else: ?>
-				        <a id="follow" href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+				        <a class="follow" href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
 				    <?php endif; ?>
 
 					</div>
@@ -74,6 +74,7 @@
 							<?php if($post['dislike'] == "Y"): ?>
 							<div class="likeUser"><strong><?=$post['who_dislikes'] ?> dislikes this</strong></div>
 							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown.png" alt="Thumbs Down"></a>
+							
 							<!-- Otherwise, show the normal links -->
 							<?php else: ?>
 							<a href="/posts/dislike/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsdown-grey.png" alt="Thumbs Down"></a>
@@ -83,6 +84,7 @@
 							<?php if($post['like'] == "Y"): ?>
 							<div class="likeUser"><strong><?=$post['who_likes'] ?> likes this</strong></div>
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup.png" alt="Thumbs Up"></a>
+							
 							<!-- Otherwise, show the normal links -->
 							<?php else: ?>
 							<a href="/posts/like/<?=$post['post_id']?>/<?=$currentUser?>"><img src="/img/thumbsup-grey.png" alt="Thumbs Up"></a>

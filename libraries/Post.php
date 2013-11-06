@@ -2,7 +2,7 @@
 
 	class Post {
 		
-		//Select all posts from users who you follow
+		# Select all posts from users who you follow
 		public function getFollowedPosts($user_id){		
 			
 			$query = 'SELECT p.user_id AS post_user_id,
@@ -21,7 +21,9 @@
 				  ON p.user_id = utu.user_id_followed
 				  JOIN users u
 				  ON p.user_id = u.user_id
-				  WHERE utu.user_id = '.$user_id.'
+				  WHERE utu.user_id = '.$user_id.' 
+				  	OR p.user_id = '.$user_id.' /*Auto-show posts from current user*/
+				  GROUP BY p.post_id			
 				  ORDER BY post_id desc';
 		
 			$posts = DB::instance(DB_NAME)->select_rows($query);
@@ -30,10 +32,10 @@
 		}
 		
 		
-		//Select all users
-		public function getAllUsers(){
+		// Select all users
+		public function getAllUsers($user_id){
 			
-			$query = "SELECT * FROM users";
+			$query = "SELECT * FROM users WHERE user_id != ".$user_id;
 		
 			$users = DB::instance(DB_NAME)->select_rows($query);
 		
@@ -41,7 +43,7 @@
 		
 		}
 		
-		//Select everyone who the current user is following
+		// Select everyone who the current user is following
 		public function getConnections($user_id){
 		
 			$query = "SELECT *
@@ -52,19 +54,6 @@
 		
 			return $connections;
 		}
-		
-		public function p_delete($post_id){
-			//$post_id = $this->post_id;
-		
-			# Delete this connection
-			$where_condition = 'WHERE post_id = '.$post_id;
-			DB::instance(DB_NAME)->delete('posts', $where_condition);
-				
-			# Send them back
-			Router::redirect("/users/profile");
-		
-	}
-		
 		
 	}
 
