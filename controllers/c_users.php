@@ -8,6 +8,10 @@ class users_controller extends base_controller {
     //Processes the signup information
     public function p_signup() {
     	
+    	if(!$_POST) {
+    		Router::redirect('/');
+    	}
+    	
     	# Gets current unix timestamp(uses static Time method from framework)
     	$_POST['created'] = Time::now();
     	
@@ -61,6 +65,9 @@ class users_controller extends base_controller {
     
     //Process the login information
     public function p_login(){
+    	
+    	# Sanitize the user entered data
+    	$_POST = DB::instance(DB_NAME)->sanitize($_POST);
     	
     	# Encrypts password (Salt = random string to make it more complicated)
     	$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
